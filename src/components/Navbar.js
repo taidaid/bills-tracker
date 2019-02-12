@@ -1,11 +1,15 @@
 import React from "react";
 
-// Allow more than one activeCategory
+// TODO: Allow more than one activeCategory
 
 export default props => {
   // toggles AddCat view
   const triggerShowAddCat = () => {
     props.showAddCat();
+  };
+
+  const triggerShowRemoveCat = () => {
+    props.showRemoveCat();
   };
 
   // updates activeCategory
@@ -62,6 +66,9 @@ export default props => {
       )}
       <li className={liStyle} onClick={triggerShowAddCat}>
         +
+      </li>
+      <li className={liStyle} onClick={triggerShowRemoveCat}>
+        -
       </li>
     </ul>
   );
