@@ -7,8 +7,8 @@ export default props => {
   const [amount, setAmount] = useState(0);
   const [category, setCategory] = useState(props.categories[0]);
 
-  const handleChangeDate = e => {
-    setDate(e.target.value);
+  const handleChangeDate = date => {
+    setDate(date);
   };
 
   const handleChangeCategory = e => {

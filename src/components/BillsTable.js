@@ -11,7 +11,7 @@ export default props => {
   };
 
   return (
-    <table className="table">
+    <table className="table w-full">
       <thead className="bg-blue text-white">
         <tr>
           <th scope="col">Date</th>
