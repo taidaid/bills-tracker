@@ -19,6 +19,10 @@ export default props => {
     setAmount(parseInt(e.target.value, 10));
   };
 
+  const handleHideAddBill = () => {
+    props.hideAddBill();
+  };
+
   const handleSubmit = e => {
     e.preventDefault();
     if (!amount) {
@@ -63,6 +67,12 @@ export default props => {
           onClick={handleSubmit}
         >
           Add
+        </button>
+        <button
+          className="flex-no-shrink ml-2 p-2 border-2 rounded bg-teal text-white border-teal hover:text-white hover:bg-teal"
+          onClick={handleHideAddBill}
+        >
+          Cancel
         </button>
       </div>
     </form>

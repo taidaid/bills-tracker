@@ -20,7 +20,9 @@ const App = () => {
   const activeBills = () => {
     return bills
       .filter(bill =>
-        activeCategory ? bill.category === activeCategory : true
+        activeCategory || activeCategory === 0
+          ? bill.category === categories[activeCategory]
+          : true
       )
       .sort((a, b) => (new Date(a.date) < new Date(b.date) ? 1 : -1));
   };
@@ -54,6 +56,14 @@ const App = () => {
   // toggles te AddBill component view
   const showAddBill = () => {
     setShouldShowAddBill(true);
+  };
+
+  const hideAddBill = () => {
+    setShouldShowAddBill(false);
+  };
+
+  const hideAddCat = () => {
+    setShouldShowAddCat(false);
   };
 
   // removes a bill from bills
@@ -101,11 +111,16 @@ const App = () => {
     <div className="App ">
       {// determines if AddCat view is shown
       shouldShowAddCat ? (
-        <AddCat onSubmit={addCategory} />
+        <AddCat onSubmit={addCategory} hideAddCat={hideAddCat} />
       ) : // determines if AddBill view is shown
       shouldShowAddBill ? (
-        <AddBill onSubmit={addBill} categories={categories} />
-      ) : shouldShowRemoveCat ? (
+        <AddBill
+          onSubmit={addBill}
+          categories={categories}
+          hideAddBill={hideAddBill}
+        />
+      ) : // determines if RemoveCat view is shown
+      shouldShowRemoveCat ? (
         <div>
           <RemoveCat handleRemove={removeCategory} categories={categories} />
           <div className="container mx-auto text-center flex">
