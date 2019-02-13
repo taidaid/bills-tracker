@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 export default props => {
   const [category, setCategory] = useState("");
@@ -8,6 +9,7 @@ export default props => {
   };
 
   const handleSubmit = e => {
+    console.log("handleSubmit");
     e.preventDefault();
     if (!category) {
       alert("Please enter a category!");
@@ -15,10 +17,6 @@ export default props => {
     }
 
     props.onSubmit(category);
-  };
-
-  const handleHideAddCat = () => {
-    props.hideAddCat();
   };
 
   return (
@@ -36,18 +34,32 @@ export default props => {
             onChange={handleChange}
             autoFocus
           />
-          <button
-            className="flex-no-shrink p-2 border-2 rounded bg-teal text-white border-teal hover:text-white hover:bg-teal"
-            onClick={handleSubmit}
-          >
-            Add
-          </button>
-          <button
-            className="flex-no-shrink ml-2 p-2 border-2 rounded bg-teal text-white border-teal hover:text-white hover:bg-teal"
-            onClick={handleHideAddCat}
-          >
-            Cancel
-          </button>
+          {category ? (
+            <button onClick={handleSubmit}>
+              <Link
+                to="./dashboard"
+                className="flex-no-shrink ml-2 p-2 border-2 rounded bg-teal text-white border-teal hover:text-white hover:bg-teal"
+              >
+                Add
+              </Link>
+            </button>
+          ) : (
+            <button
+              className="flex-no-shrink ml-2 p-2 border-2 rounded bg-grey-light text-white border-grey cursor-default"
+              onClick={handleSubmit}
+            >
+              Add
+            </button>
+          )}
+
+          <Link to="./dashboard">
+            <button
+              className="flex-no-shrink ml-2 p-2 border-2 rounded bg-teal text-white border-teal hover:text-white hover:bg-teal"
+              type="button"
+            >
+              Cancel
+            </button>
+          </Link>
         </div>
       </div>
     </form>

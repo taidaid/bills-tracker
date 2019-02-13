@@ -1,5 +1,12 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect
+} from "react-router-dom";
+
 import "react-datepicker/dist/react-datepicker.css";
 
 export default props => {
@@ -19,17 +26,12 @@ export default props => {
     setAmount(parseInt(e.target.value, 10));
   };
 
-  const handleHideAddBill = () => {
-    props.hideAddBill();
-  };
-
   const handleSubmit = e => {
     e.preventDefault();
     if (!amount) {
       alert("Please enter an amount!");
       return;
     }
-
     props.onSubmit(amount, category || props.categories[0], date);
   };
 
@@ -62,18 +64,32 @@ export default props => {
               : ""}
           </select>
         </div>
-        <button
-          className="flex-no-shrink ml-2 p-2 border-2 rounded bg-teal text-white border-teal hover:text-white hover:bg-teal"
-          onClick={handleSubmit}
-        >
-          Add
-        </button>
-        <button
-          className="flex-no-shrink ml-2 p-2 border-2 rounded bg-teal text-white border-teal hover:text-white hover:bg-teal"
-          onClick={handleHideAddBill}
-        >
-          Cancel
-        </button>
+        {amount ? (
+          <button onClick={handleSubmit}>
+            <Link
+              className="flex-no-shrink ml-2 p-2 border-2 rounded bg-teal text-white border-teal hover:text-white hover:bg-teal"
+              to="/dashboard"
+            >
+              Add
+            </Link>
+          </button>
+        ) : (
+          <button
+            className="flex-no-shrink ml-2 p-2 border-2 rounded bg-grey-light text-white border-grey cursor-default"
+            onClick={handleSubmit}
+          >
+            Add
+          </button>
+        )}
+
+        <Link to="/dashboard">
+          <button
+            className="flex-no-shrink ml-2 p-2 border-2 rounded bg-teal text-white border-teal hover:text-white hover:bg-teal"
+            type="button"
+          >
+            Cancel
+          </button>
+        </Link>
       </div>
     </form>
   );

@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect
+} from "react-router-dom";
 
 import "./App.css";
 import AddCat from "./components/AddCat";
@@ -10,9 +15,6 @@ import AddBill from "./components/AddBill";
 import RemoveCat from "./components/RemoveCat";
 
 const App = () => {
-  const [shouldShowAddCat, setShouldShowAddCat] = useState(true);
-  const [shouldShowAddBill, setShouldShowAddBill] = useState(false);
-  const [shouldShowRemoveCat, setShouldShowRemoveCat] = useState(false);
   const [categories, setCategories] = useState([]);
   const [bills, setBills] = useState([]);
   const [activeCategory, setActiveCategory] = useState();
@@ -32,43 +34,19 @@ const App = () => {
   const addCategory = category => {
     const updatedCategories = [...(categories || []), category];
     setCategories(updatedCategories);
-    setShouldShowAddCat(false);
+
     localStorage.setItem("categories", JSON.stringify(updatedCategories));
   };
 
   // adds bill to bills and returns to BillsTable view
   const addBill = (amount, category, date) => {
     const bill = { amount, category, date };
+
     const updatedBills = [...(bills || []), bill];
     setBills(updatedBills);
-    setShouldShowAddBill(false);
+
     localStorage.setItem("bills", JSON.stringify(updatedBills));
-  };
-
-  // toggles the AddCat component view
-  const showAddCat = () => {
-    setShouldShowAddCat(true);
-  };
-
-  const showRemoveCat = () => {
-    setShouldShowRemoveCat(true);
-  };
-
-  const hideRemoveCat = () => {
-    setShouldShowRemoveCat(false);
-  };
-
-  // toggles te AddBill component view
-  const showAddBill = () => {
-    setShouldShowAddBill(true);
-  };
-
-  const hideAddBill = () => {
-    setShouldShowAddBill(false);
-  };
-
-  const hideAddCat = () => {
-    setShouldShowAddCat(false);
+    return <Redirect to="./dashboard" />;
   };
 
   // removes a bill from bills
@@ -86,7 +64,7 @@ const App = () => {
       return index !== key;
     });
     setCategories(updatedCategories);
-    setShouldShowRemoveCat(false);
+
     localStorage.setItem("categories", JSON.stringify(updatedCategories));
   };
 
@@ -104,74 +82,67 @@ const App = () => {
 
     setCategories(categoriesInLocalStorage);
     setBills(billsInLocalStorage);
-
-    if (!categoriesInLocalStorage) {
-      setShouldShowAddCat(true);
-    } else {
-      setShouldShowAddCat(false);
-    }
   }, []);
 
   return (
-    <div className="App ">
-      {// determines if AddCat view is shown
-      shouldShowAddCat ? (
-        <AddCat onSubmit={addCategory} hideAddCat={hideAddCat} />
-      ) : // determines if AddBill view is shown
-      shouldShowAddBill ? (
-        <AddBill
-          onSubmit={addBill}
-          categories={categories}
-          hideAddBill={hideAddBill}
+    <Router>
+      <div className="App">
+        <Route
+          path="/add-category"
+          render={props => <AddCat {...props} onSubmit={addCategory} />}
         />
-      ) : // determines if RemoveCat view is shown
-      shouldShowRemoveCat ? (
-        <div>
-          <RemoveCat
-            handleRemove={removeCategory}
-            hideRemoveCat={hideRemoveCat}
-            categories={categories}
-          />
-          <div className="container mx-auto text-center flex">
-            <div className="w-1/2 flex justify-center ">
-              <BillsTable
-                bills={activeBills()}
-                showAddBill={showAddBill}
-                removeBill={removeBill}
-              />
-            </div>
 
-            <div className="w-1/2">
-              <Chart bills={activeBills()} />
-            </div>
-          </div>
-        </div>
-      ) : (
-        // if neither AddCat now AddBill views are shown, Navbar, BillsTable, and Chart view is shown
-        <div className="">
-          <Navbar
-            categories={categories}
-            showAddCat={showAddCat}
-            showRemoveCat={showRemoveCat}
-            activeCategory={activeCategory}
-            setNewActiveCategory={setNewActiveCategory}
-          />
-          <div className="container mx-auto text-center flex">
-            <div className="w-1/2 flex justify-center ">
-              <BillsTable
-                bills={activeBills()}
-                showAddBill={showAddBill}
-                removeBill={removeBill}
-              />
-            </div>
+        <Route
+          path="/add-bill"
+          render={props => (
+            <AddBill {...props} onSubmit={addBill} categories={categories} />
+          )}
+        />
 
-            <div className="w-1/2">
-              <Chart bills={activeBills()} />
+        <Route
+          path="/remove-category"
+          render={props => (
+            <div>
+              <RemoveCat
+                handleRemove={removeCategory}
+                categories={categories}
+              />
+              <div className="container mx-auto text-center flex">
+                <div className="w-1/2 flex justify-center ">
+                  <BillsTable bills={activeBills()} removeBill={removeBill} />
+                </div>
+
+                <div className="w-1/2">
+                  <Chart bills={activeBills()} />
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      )}
-    </div>
+          )}
+        />
+
+        <Route
+          path="/dashboard"
+          render={props => (
+            <div className="">
+              <Navbar
+                categories={categories}
+                activeCategory={activeCategory}
+                setNewActiveCategory={setNewActiveCategory}
+              />
+              <div className="container mx-auto text-center flex">
+                <div className="w-1/2 flex justify-center ">
+                  <BillsTable bills={activeBills()} removeBill={removeBill} />
+                </div>
+
+                <div className="w-1/2">
+                  <Chart bills={activeBills()} />
+                </div>
+              </div>
+            </div>
+          )}
+        />
+      </div>
+    </Router>
   );
 };
 

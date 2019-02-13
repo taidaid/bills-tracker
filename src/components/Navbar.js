@@ -1,17 +1,9 @@
 import React from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 // TODO: Allow more than one activeCategory
 
 export default props => {
-  // toggles AddCat view
-  const triggerShowAddCat = () => {
-    props.showAddCat();
-  };
-
-  const triggerShowRemoveCat = () => {
-    props.showRemoveCat();
-  };
-
   // updates activeCategory
   const setNewActiveCategory = index => {
     props.setNewActiveCategory(index);
@@ -64,12 +56,20 @@ export default props => {
       ) : (
         <li>No categories</li>
       )}
-      <li className={liStyle} onClick={triggerShowAddCat}>
-        +
-      </li>
-      <li className={liStyle} onClick={triggerShowRemoveCat}>
-        -
-      </li>
+      <Link
+        to="./add-category"
+        className={liStyle}
+        style={{ textDecoration: "none", color: "black" }}
+      >
+        <li className={liStyle}>+</li>
+      </Link>
+      <Link
+        to="./remove-category"
+        className={liStyle}
+        style={{ textDecoration: "none", color: "black" }}
+      >
+        <li className={liStyle}>-</li>
+      </Link>
     </ul>
   );
 };

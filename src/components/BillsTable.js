@@ -1,11 +1,11 @@
 import React from "react";
 import Moment from "react-moment";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
+//TODO
+// remove button is not working correctly
 
 export default props => {
-  const triggerShowAddBill = () => {
-    props.showAddBill();
-  };
-
   const removeBill = index => {
     props.removeBill(index);
   };
@@ -23,12 +23,14 @@ export default props => {
       <tbody>
         <tr className="p-4 bg-blue-lighter text-center">
           <td colSpan="4">
-            <button className="underline" onClick={triggerShowAddBill}>
-              Add new
+            <button>
+              <Link to="/add-bill" className="hover:text-white text-black">
+                Add new
+              </Link>
             </button>
           </td>
         </tr>
-        {/* {console.log(props.bills)} */}
+
         {props.bills.map((bill, index) => {
           if (index % 2 === 0) {
             return (
