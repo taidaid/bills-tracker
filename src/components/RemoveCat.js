@@ -5,8 +5,13 @@ export default props => {
     props.handleRemove(index);
   };
 
+  const triggerHideRemoveCat = () => {
+    props.hideRemoveCat();
+  };
+
   // extricates styling
-  const liStyle = "p-4 inline uppercase font-black cursor-pointer";
+  const liStyle =
+    "p-4 inline uppercase font-black cursor-pointer hover:bg-grey-light";
 
   return (
     <ul className="list-reset inline flex justify-center border-b-4 mb-0">
@@ -16,7 +21,7 @@ export default props => {
         props.categories.map((category, index) => {
           return (
             <li
-              className={liStyle + " hover:bg-grey-light"}
+              className={liStyle}
               key={index}
               // set background-color based on activeCategory, clicking Navbar element that matches activeCategory, empties activeCategory
               onClick={() => {
@@ -30,6 +35,9 @@ export default props => {
       ) : (
         <li>No categories</li>
       )}
+      <li className={liStyle} onClick={triggerHideRemoveCat}>
+        -
+      </li>
     </ul>
   );
 };

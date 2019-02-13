@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter, Route, Link } from "react-router-dom";
 
 import "./App.css";
 import AddCat from "./components/AddCat";
@@ -51,6 +52,10 @@ const App = () => {
 
   const showRemoveCat = () => {
     setShouldShowRemoveCat(true);
+  };
+
+  const hideRemoveCat = () => {
+    setShouldShowRemoveCat(false);
   };
 
   // toggles te AddBill component view
@@ -122,7 +127,11 @@ const App = () => {
       ) : // determines if RemoveCat view is shown
       shouldShowRemoveCat ? (
         <div>
-          <RemoveCat handleRemove={removeCategory} categories={categories} />
+          <RemoveCat
+            handleRemove={removeCategory}
+            hideRemoveCat={hideRemoveCat}
+            categories={categories}
+          />
           <div className="container mx-auto text-center flex">
             <div className="w-1/2 flex justify-center ">
               <BillsTable
