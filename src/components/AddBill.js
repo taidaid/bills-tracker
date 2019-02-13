@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Redirect
-} from "react-router-dom";
+// eslint-disable-next-line no-unused-vars
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import "react-datepicker/dist/react-datepicker.css";
 

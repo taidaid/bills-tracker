@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Redirect
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 import "./App.css";
 import AddCat from "./components/AddCat";
@@ -46,12 +41,12 @@ const App = () => {
     setBills(updatedBills);
 
     localStorage.setItem("bills", JSON.stringify(updatedBills));
-    return <Redirect to="./dashboard" />;
   };
 
   // removes a bill from bills
   const removeBill = index => {
-    let updatedBills = [...bills];
+    let updatedBills = [...activeBills()];
+
     updatedBills = updatedBills
       .slice(0, index)
       .concat(updatedBills.slice(index + 1, updatedBills.length));
@@ -87,60 +82,61 @@ const App = () => {
   return (
     <Router>
       <div className="App">
-        <Route
-          path="/add-category"
-          render={props => <AddCat {...props} onSubmit={addCategory} />}
-        />
+        <Switch>
+          <Route
+            path="/add-category"
+            render={props => <AddCat {...props} onSubmit={addCategory} />}
+          />
 
-        <Route
-          path="/add-bill"
-          render={props => (
-            <AddBill {...props} onSubmit={addBill} categories={categories} />
-          )}
-        />
+          <Route
+            path="/add-bill"
+            render={props => (
+              <AddBill {...props} onSubmit={addBill} categories={categories} />
+            )}
+          />
 
-        <Route
-          path="/remove-category"
-          render={props => (
-            <div>
-              <RemoveCat
-                handleRemove={removeCategory}
-                categories={categories}
-              />
-              <div className="container mx-auto text-center flex">
-                <div className="w-1/2 flex justify-center ">
-                  <BillsTable bills={activeBills()} removeBill={removeBill} />
-                </div>
+          <Route
+            path="/remove-category"
+            render={props => (
+              <div>
+                <RemoveCat
+                  handleRemove={removeCategory}
+                  categories={categories}
+                />
+                <div className="container mx-auto text-center flex">
+                  <div className="w-1/2 flex justify-center ">
+                    <BillsTable bills={activeBills()} removeBill={removeBill} />
+                  </div>
 
-                <div className="w-1/2">
-                  <Chart bills={activeBills()} />
-                </div>
-              </div>
-            </div>
-          )}
-        />
-
-        <Route
-          path="/dashboard"
-          render={props => (
-            <div className="">
-              <Navbar
-                categories={categories}
-                activeCategory={activeCategory}
-                setNewActiveCategory={setNewActiveCategory}
-              />
-              <div className="container mx-auto text-center flex">
-                <div className="w-1/2 flex justify-center ">
-                  <BillsTable bills={activeBills()} removeBill={removeBill} />
-                </div>
-
-                <div className="w-1/2">
-                  <Chart bills={activeBills()} />
+                  <div className="w-1/2">
+                    <Chart bills={activeBills()} />
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
-        />
+            )}
+          />
+
+          <Route
+            render={props => (
+              <div className="">
+                <Navbar
+                  categories={categories}
+                  activeCategory={activeCategory}
+                  setNewActiveCategory={setNewActiveCategory}
+                />
+                <div className="container mx-auto text-center flex">
+                  <div className="w-1/2 flex justify-center ">
+                    <BillsTable bills={activeBills()} removeBill={removeBill} />
+                  </div>
+
+                  <div className="w-1/2">
+                    <Chart bills={activeBills()} />
+                  </div>
+                </div>
+              </div>
+            )}
+          />
+        </Switch>
       </div>
     </Router>
   );

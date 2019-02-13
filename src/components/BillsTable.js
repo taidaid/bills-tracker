@@ -1,5 +1,6 @@
 import React from "react";
 import Moment from "react-moment";
+// eslint-disable-next-line no-unused-vars
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 //TODO
@@ -7,6 +8,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 export default props => {
   const removeBill = index => {
+    console.log(index);
     props.removeBill(index);
   };
 
