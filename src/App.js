@@ -1,5 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+// eslint-disable-next-line no-unused-vars
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Switch,
+  Redirect
+} from "react-router-dom";
+
+// TODO:
+// Allow more than one activeCategory:
+// SEE Navbar.js
 
 import "./App.css";
 import AddCat from "./components/AddCat";
@@ -12,6 +23,7 @@ import RemoveCat from "./components/RemoveCat";
 const App = () => {
   const [categories, setCategories] = useState([]);
   const [bills, setBills] = useState([]);
+  // const [activeCategories, setActiveCategories] = useState([])
   const [activeCategory, setActiveCategory] = useState();
 
   // filters activeBills from bills by returning bills with category matching activeCategory
@@ -55,8 +67,8 @@ const App = () => {
   };
 
   const removeCategory = key => {
-    let updatedCategories = categories.filter((_, index) => {
-      return index !== key;
+    const updatedCategories = categories.filter((_, i) => {
+      return i !== key;
     });
     setCategories(updatedCategories);
 
@@ -65,6 +77,7 @@ const App = () => {
 
   // sets activeCateogry
   const setNewActiveCategory = index => {
+    // setActiveCategories([...activeCategories], index)
     setActiveCategory(index);
   };
 
@@ -117,24 +130,31 @@ const App = () => {
           />
 
           <Route
-            render={props => (
-              <div className="">
-                <Navbar
-                  categories={categories}
-                  activeCategory={activeCategory}
-                  setNewActiveCategory={setNewActiveCategory}
-                />
-                <div className="container mx-auto text-center flex">
-                  <div className="w-1/2 flex justify-center ">
-                    <BillsTable bills={activeBills()} removeBill={removeBill} />
-                  </div>
+            render={props =>
+              categories.length ? (
+                <div className="">
+                  <Navbar
+                    categories={categories}
+                    activeCategory={activeCategory}
+                    setNewActiveCategory={setNewActiveCategory}
+                  />
+                  <div className="container mx-auto text-center flex">
+                    <div className="w-1/2 flex justify-center ">
+                      <BillsTable
+                        bills={activeBills()}
+                        removeBill={removeBill}
+                      />
+                    </div>
 
-                  <div className="w-1/2">
-                    <Chart bills={activeBills()} />
+                    <div className="w-1/2">
+                      <Chart bills={activeBills()} />
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              ) : (
+                <Redirect to="/add-category" />
+              )
+            }
           />
         </Switch>
       </div>

@@ -3,9 +3,6 @@ import Moment from "react-moment";
 // eslint-disable-next-line no-unused-vars
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-//TODO
-// remove button is not working correctly
-
 export default props => {
   const removeBill = index => {
     console.log(index);
@@ -26,7 +23,10 @@ export default props => {
         <tr className="p-4 bg-blue-lighter text-center">
           <td colSpan="4">
             <button>
-              <Link to="/add-bill" className="hover:text-white text-black">
+              <Link
+                to="/add-bill"
+                className="font-black hover:text-white text-black"
+              >
                 Add new
               </Link>
             </button>

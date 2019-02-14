@@ -2,7 +2,25 @@ import React from "react";
 // eslint-disable-next-line no-unused-vars
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-// TODO: Allow more than one activeCategory
+// TODO:
+// Allow more than one activeCategory:
+//      activeCategory becomes activeCategories, an Array.
+//      if (activeCategories.length === 0) 'All'
+//
+//      onClick={() => {
+//        let updatedCategories = [...props.activeCategories]
+//        props.activeCategories.map(category => {
+//          if(category === index){
+//            updatedCategories.filter((_, i) => {
+//              return i !== key;
+//
+//            })
+//              setNewActiveCategory(updatedCategories)
+//          }else{
+//             updatedCategories.push(category)
+//             setNewActiveCategory(updatedCategories)
+//            }
+//        })
 
 export default props => {
   // updates activeCategory
