@@ -23,16 +23,11 @@ export default props => {
               key={index}
               className={liStyle}
               style={{ textDecoration: "none", color: "black" }}
+              onClick={() => {
+                handleRemove(index);
+              }}
             >
-              <li
-                className={liStyle}
-                // set background-color based on activeCategory, clicking Navbar element that matches activeCategory, empties activeCategory
-                onClick={() => {
-                  handleRemove(index);
-                }}
-              >
-                {category}
-              </li>
+              <li className={liStyle}>{category}</li>
             </Link>
           );
         })

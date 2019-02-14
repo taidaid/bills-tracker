@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
-// eslint-disable-next-line no-unused-vars
+
 import {
   BrowserRouter as Router,
   Route,
@@ -23,8 +24,17 @@ import RemoveCat from "./components/RemoveCat";
 const App = () => {
   const [categories, setCategories] = useState([]);
   const [bills, setBills] = useState([]);
+  const [shouldShowAddCat, setShouldShowAddCat] = useState(true);
   // const [activeCategories, setActiveCategories] = useState([])
   const [activeCategory, setActiveCategory] = useState();
+
+  // const showAddCat = () => {
+  //   setShouldShowAddCat(true);
+  // };
+
+  // const hideAddCat = () => {
+  //   setShouldShowAddCat(false);
+  // };
 
   // filters activeBills from bills by returning bills with category matching activeCategory
   const activeBills = () => {
@@ -96,13 +106,35 @@ const App = () => {
     <Router>
       <div className="App">
         <Switch>
+          {/* {shouldShowAddCat ? (
+            <Route
+              path="/add-category"
+              render={props => (
+                <AddCat
+                  {...props}
+                  hideAddCat={hideAddCat}
+                  onSubmit={addCategory}
+                />
+              )}
+            />
+          ) : (
+            <Redirect to="/dashboard" />
+          )} */}
           <Route
             path="/add-category"
-            render={props => <AddCat {...props} onSubmit={addCategory} />}
+            exact
+            render={props => (
+              <AddCat
+                {...props}
+                // hideAddCat={hideAddCat}
+                onSubmit={addCategory}
+              />
+            )}
           />
 
           <Route
             path="/add-bill"
+            exact
             render={props => (
               <AddBill {...props} onSubmit={addBill} categories={categories} />
             )}
@@ -110,6 +142,7 @@ const App = () => {
 
           <Route
             path="/remove-category"
+            exact
             render={props => (
               <div>
                 <RemoveCat
@@ -128,15 +161,16 @@ const App = () => {
               </div>
             )}
           />
-
+          {console.log("length" + categories.length)}
           <Route
             render={props =>
-              categories.length ? (
+              categories.length > 0 ? (
                 <div className="">
                   <Navbar
                     categories={categories}
                     activeCategory={activeCategory}
                     setNewActiveCategory={setNewActiveCategory}
+                    // showAddCat={showAddCat}
                   />
                   <div className="container mx-auto text-center flex">
                     <div className="w-1/2 flex justify-center ">

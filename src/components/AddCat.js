@@ -1,6 +1,13 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-// eslint-disable-next-line no-unused-vars
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Switch,
+  Redirect
+} from "react-router-dom";
 
 export default props => {
   const [category, setCategory] = useState("");
@@ -9,19 +16,25 @@ export default props => {
     setCategory(e.target.value);
   };
 
+  // const handleSubmitEnter = () => {
+  //   handleSubmit();
+  //   props.hideAddCat();
+  // }
+
   const handleSubmit = e => {
-    console.log("handleSubmit");
     e.preventDefault();
     if (!category) {
       alert("Please enter a category!");
       return;
     }
-
     props.onSubmit(category);
   };
 
   return (
-    <form className="h-100 w-full flex items-center justify-center text-center font-sans">
+    <form
+      className="h-100 w-full flex items-center justify-center text-center font-sans"
+      // onSubmit={handleSubmitEnter}
+    >
       <div className="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">
         <div className="mb-4">
           <h1 className="text-grey-darkest">Enter a bills category</h1>

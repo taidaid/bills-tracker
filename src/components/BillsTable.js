@@ -32,42 +32,52 @@ export default props => {
             </button>
           </td>
         </tr>
-
-        {props.bills.map((bill, index) => {
-          if (index % 2 === 0) {
-            return (
-              <tr className="p4" key={index}>
-                <td className="p-2 w-1/3">
-                  <Moment format="MMM D YYYY">{bill.date}</Moment>
-                </td>
-                <td className="p-2 w-1/3">${bill.amount}</td>
-                <td className="p-2 w-1/3">{bill.category}</td>
-                <td
-                  className="cursor-pointer"
-                  onClick={() => removeBill(index)}
-                >
-                  X
-                </td>
-              </tr>
-            );
-          } else {
-            return (
-              <tr className="p4 bg-blue-lightest" key={index}>
-                <td className="p-2 w-1/3">
-                  <Moment format="MMM D YYYY">{bill.date}</Moment>
-                </td>
-                <td className="p-2 w-1/3">${bill.amount}</td>
-                <td className="p-2 w-1/3">{bill.category}</td>
-                <td
-                  className="cursor-pointer"
-                  onClick={() => removeBill(index)}
-                >
-                  X
-                </td>
-              </tr>
-            );
-          }
-        })}
+        {console.log(props.bills)}
+        {props.bills.length ? (
+          props.bills.map((bill, index) => {
+            if (index % 2 === 0) {
+              return (
+                <tr className="p4" key={index}>
+                  <td className="p-2 w-1/3">
+                    <Moment format="MMM D YYYY">{bill.date}</Moment>
+                  </td>
+                  <td className="p-2 w-1/3">${bill.amount}</td>
+                  <td className="p-2 w-1/3">{bill.category}</td>
+                  <td
+                    className="cursor-pointer"
+                    onClick={() => removeBill(index)}
+                  >
+                    X
+                  </td>
+                </tr>
+              );
+            } else {
+              return (
+                <tr className="p4 bg-blue-lightest" key={index}>
+                  <td className="p-2 w-1/3">
+                    <Moment format="MMM D YYYY">{bill.date}</Moment>
+                  </td>
+                  <td className="p-2 w-1/3">${bill.amount}</td>
+                  <td className="p-2 w-1/3">{bill.category}</td>
+                  <td
+                    className="cursor-pointer"
+                    onClick={() => removeBill(index)}
+                  >
+                    X
+                  </td>
+                </tr>
+              );
+            }
+          })
+        ) : (
+          <tr className="p4 bg-blue-lightest">
+            <td className="p-2 w-1/3" colspan="0" />
+            <td className="p-2 w-1/3" colspan="0">
+              NO BILLS
+            </td>
+            <td className="p-2 w-1/3" colspan="0" />
+          </tr>
+        )}
       </tbody>
     </table>
   );
