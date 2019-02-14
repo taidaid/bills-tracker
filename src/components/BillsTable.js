@@ -27,7 +27,7 @@ export default props => {
                 to="/add-bill"
                 className="font-black hover:text-white text-black"
               >
-                Add new
+                Add New Bill
               </Link>
             </button>
           </td>
@@ -72,8 +72,12 @@ export default props => {
         ) : (
           <tr className="p4 bg-blue-lightest">
             <td className="p-2 w-1/3" colspan="0" />
-            <td className="p-2 w-1/3" colspan="0">
-              NO BILLS
+            <td
+              className="p-2 w-1/3 text-3xl uppercase"
+              colspan="0"
+              title='Click "Add New Bill" above'
+            >
+              No Bills
             </td>
             <td className="p-2 w-1/3" colspan="0" />
           </tr>

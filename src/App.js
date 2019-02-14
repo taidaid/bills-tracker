@@ -106,27 +106,13 @@ const App = () => {
     <Router>
       <div className="App">
         <Switch>
-          {/* {shouldShowAddCat ? (
-            <Route
-              path="/add-category"
-              render={props => (
-                <AddCat
-                  {...props}
-                  hideAddCat={hideAddCat}
-                  onSubmit={addCategory}
-                />
-              )}
-            />
-          ) : (
-            <Redirect to="/dashboard" />
-          )} */}
           <Route
             path="/add-category"
             exact
             render={props => (
               <AddCat
                 {...props}
-                // hideAddCat={hideAddCat}
+                categories={categories}
                 onSubmit={addCategory}
               />
             )}
@@ -170,7 +156,6 @@ const App = () => {
                     categories={categories}
                     activeCategory={activeCategory}
                     setNewActiveCategory={setNewActiveCategory}
-                    // showAddCat={showAddCat}
                   />
                   <div className="container mx-auto text-center flex">
                     <div className="w-1/2 flex justify-center ">

@@ -66,7 +66,14 @@ export default props => {
             </button>
           )}
 
-          <Link to="./dashboard">
+          <Link
+            to="./dashboard"
+            onClick={() =>
+              !props.categories.length
+                ? alert("Please enter a category!")
+                : null
+            }
+          >
             <button
               className="flex-no-shrink ml-2 p-2 border-2 rounded bg-teal text-white border-teal hover:text-white hover:bg-teal"
               type="button"
