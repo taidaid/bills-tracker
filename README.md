@@ -1,4 +1,5 @@
-#Bills Tracker
+##Bills Tracker
+
 This app allows a user to add/remove categories and records of bills. It then displays a graph of money over time showing how much money was spent in each month per category.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
