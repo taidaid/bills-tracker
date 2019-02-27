@@ -1,4 +1,4 @@
-## Bills Tracker
+## bills-tracker
 
 This app allows a user to add/remove categories and records of bills. It then displays a graph of money over time showing how much money was spent in each month per category.
 
