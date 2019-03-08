@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 export default props => {
   const removeBill = index => {
-    console.log(index);
     props.removeBill(index);
   };
 
@@ -32,7 +31,7 @@ export default props => {
             </button>
           </td>
         </tr>
-        {console.log(props.bills)}
+
         {props.bills.length ? (
           props.bills.map((bill, index) => {
             if (index % 2 === 0) {
@@ -74,12 +73,12 @@ export default props => {
             <td className="p-2 w-1/3" colSpan="0" />
             <td
               className="p-2 w-1/3 text-3xl uppercase"
-              colspan="0"
+              colSpan="0"
               title='Click "Add New Bill" above'
             >
               No Bills
             </td>
-            <td className="p-2 w-1/3" colspan="0" />
+            <td className="p-2 w-1/3" colSpan="0" />
           </tr>
         )}
       </tbody>

@@ -16,11 +16,6 @@ export default props => {
     setCategory(e.target.value);
   };
 
-  // const handleSubmitEnter = () => {
-  //   handleSubmit();
-  //   props.hideAddCat();
-  // }
-
   const handleSubmit = e => {
     e.preventDefault();
     if (!category) {

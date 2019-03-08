@@ -24,17 +24,8 @@ import RemoveCat from "./components/RemoveCat";
 const App = () => {
   const [categories, setCategories] = useState([]);
   const [bills, setBills] = useState([]);
-  const [shouldShowAddCat, setShouldShowAddCat] = useState(true);
-  // const [activeCategories, setActiveCategories] = useState([])
+
   const [activeCategory, setActiveCategory] = useState();
-
-  // const showAddCat = () => {
-  //   setShouldShowAddCat(true);
-  // };
-
-  // const hideAddCat = () => {
-  //   setShouldShowAddCat(false);
-  // };
 
   // filters activeBills from bills by returning bills with category matching activeCategory
   const activeBills = () => {
@@ -146,7 +137,7 @@ const App = () => {
               </div>
             )}
           />
-          {console.log("length" + categories.length)}
+
           <Route
             render={props =>
               categories.length > 0 ? (
