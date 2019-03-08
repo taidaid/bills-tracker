@@ -19,6 +19,9 @@ export default props => {
   };
 
   const handleChangeAmount = e => {
+    if (Number.isNaN(parseInt(e.target.value, 10))) {
+      return;
+    }
     setAmount(parseInt(e.target.value, 10));
   };
 
