@@ -93,10 +93,9 @@ const App = () => {
 
   // reads from localStorage on mount
   useEffect(() => {
-    const categoriesInLocalStorage = JSON.parse(
-      localStorage.getItem("categories")
-    );
-    const billsInLocalStorage = JSON.parse(localStorage.getItem("bills"));
+    const categoriesInLocalStorage =
+      JSON.parse(localStorage.getItem("categories")) || [];
+    const billsInLocalStorage = JSON.parse(localStorage.getItem("bills")) || [];
 
     setCategories(categoriesInLocalStorage);
     setBills(billsInLocalStorage);

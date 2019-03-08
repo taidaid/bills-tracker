@@ -27,13 +27,14 @@ export default props => {
       alert("Please enter a category!");
       return;
     }
+    props.history.push("/dashboard");
     props.onSubmit(category);
   };
 
   return (
     <form
       className="h-100 w-full flex items-center justify-center text-center font-sans"
-      // onSubmit={handleSubmitEnter}
+      onSubmit={handleSubmit}
     >
       <div className="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">
         <div className="mb-4">
@@ -51,7 +52,7 @@ export default props => {
           {category ? (
             <button onClick={handleSubmit}>
               <Link
-                to="./dashboard"
+                to="/dashboard"
                 className="flex-no-shrink ml-2 p-2 border-2 rounded bg-teal text-white border-teal hover:text-white hover:bg-teal"
               >
                 Add
@@ -67,7 +68,7 @@ export default props => {
           )}
 
           <Link
-            to="./dashboard"
+            to="/dashboard"
             onClick={() =>
               !props.categories.length
                 ? alert("Please enter a category!")

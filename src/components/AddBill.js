@@ -28,11 +28,15 @@ export default props => {
       alert("Please enter an amount!");
       return;
     }
+    props.history.push("/dashboard");
     props.onSubmit(amount, category || props.categories[0], date);
   };
 
   return (
-    <form className="h-100 w-full flex items-center justify-center font-sans">
+    <form
+      className="h-100 w-full flex items-center justify-center font-sans"
+      onSubmit={handleSubmit}
+    >
       <div className="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">
         <div className="mb-4">
           <h1 className="text-grey-darkest">Enter a bills category</h1>

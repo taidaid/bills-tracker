@@ -71,7 +71,7 @@ export default props => {
           })
         ) : (
           <tr className="p4 bg-blue-lightest">
-            <td className="p-2 w-1/3" colspan="0" />
+            <td className="p-2 w-1/3" colSpan="0" />
             <td
               className="p-2 w-1/3 text-3xl uppercase"
               colspan="0"
